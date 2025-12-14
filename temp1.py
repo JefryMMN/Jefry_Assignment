@@ -1,11 +1,8 @@
-"""
-Assignment 1: Temperature Analysis
-SUPER BASIC - Only What You Need!
-"""
+
 
 import pandas as pd
 import matplotlib.pyplot as plt
-
+import seaborn as sns
 
 wa = pd.read_csv('4180571.csv')
 ma = pd.read_csv('4185951.csv')
@@ -14,8 +11,6 @@ il = pd.read_csv('4180585.csv')
 wi = pd.read_csv('4180586.csv')
 
 
-
-print("\n=== STATISTICS ===\n")
 
 print("WASHINGTON:")
 print(f"  Mean: {wa['TAVG'].mean():.1f}°F")
@@ -43,57 +38,57 @@ print(f"  Min: {wi['TAVG'].min():.1f}°F")
 print(f"  Max: {wi['TAVG'].max():.1f}°F")
 
 
-print("\n=== CORRELATION ===\n")
+print("\n CORRELATION \n")
 
 correlation = wa['TAVG'].corr(ma['TAVG'])
 print(f"Washington vs Massachusetts: {correlation:.3f}")
 
 if correlation > 0.7:
-    print("→ HIGH! They move together!")
+    print("HIGH, They move together!")
 elif correlation < 0.3:
-    print("→ LOW! They move separately!")
+    print("LOW, They move separately!")
 else:
-    print("→ MEDIUM")
+    print(" MEDIUM")
 
 
-print("\n=== CREATING CHARTS ===\n")
+print("\n CREATING CHARTS \n")
 
 plt.figure(figsize=(10, 6))
 plt.hist(wa['TAVG'], bins=30, color='blue', edgecolor='black')
 plt.title('Washington Temperature Distribution')
-plt.xlabel('Temperature (°F)')
+plt.xlabel('Temperature')
 plt.ylabel('Frequency')
 plt.show()
 
 plt.figure(figsize=(10, 6))
 plt.hist(ma['TAVG'], bins=30, color='green', edgecolor='black')
 plt.title('Massachusetts Temperature Distribution')
-plt.xlabel('Temperature (°F)')
+plt.xlabel('Temperature ')
 plt.ylabel('Frequency')
 plt.show()
 
 plt.figure(figsize=(10, 6))
 plt.hist(tx['TAVG'], bins=30, color='red', edgecolor='black')
 plt.title('Texas Temperature Distribution')
-plt.xlabel('Temperature (°F)')
+plt.xlabel('Temperature')
 plt.ylabel('Frequency')
 plt.show()
 
 plt.figure(figsize=(10, 6))
 plt.hist(il['TAVG'], bins=30, color='orange', edgecolor='black')
 plt.title('Illinois Temperature Distribution')
-plt.xlabel('Temperature (°F)')
+plt.xlabel('Temperature ')
 plt.ylabel('Frequency')
 plt.show()
 
 plt.figure(figsize=(10, 6))
 plt.hist(wi['TAVG'], bins=30, color='purple', edgecolor='black')
 plt.title('Wisconsin Temperature Distribution')
-plt.xlabel('Temperature (°F)')
+plt.xlabel('Temperature ')
 plt.ylabel('Frequency')
 plt.show()
 
-print("\n=== CORRELATION HEATMAP ===\n")
+print("\nCORRELATION HEATMAP\n")
 
 # Prepare data: Merge all states by date
 wa['DATE'] = pd.to_datetime(wa['DATE'])
@@ -114,7 +109,7 @@ correlation_table = merged[['Washington', 'Massachusetts', 'Texas', 'Illinois', 
 print("Correlation Table:")
 print(correlation_table.round(3))
 
-import seaborn as sns
+
 plt.figure(figsize=(10, 8))
 sns.heatmap(correlation_table, annot=True, fmt='.3f', cmap='coolwarm', 
             center=0, vmin=-1, vmax=1, square=True, linewidths=1)
@@ -122,7 +117,7 @@ plt.title('Correlation Heatmap: Temperature Between States', fontsize=14, fontwe
 plt.tight_layout()
 plt.show()
 
-print("\n=== MONTHLY CORRELATION (WA vs MA) ===\n")
+print("\n MONTHLY CORRELATION (WA vs MA) \n")
 
 merged['Month'] = pd.to_datetime(merged['DATE']).dt.month
 
@@ -160,7 +155,7 @@ plt.tight_layout()
 plt.show()
 
 
-print("\n=== SEASONAL CORRELATION (WA vs MA) ===\n")
+print("\n SEASONAL CORRELATION (WA vs MA) \n")
 
 def get_season(month):
     if month in [12, 1, 2]: return 'Winter'
